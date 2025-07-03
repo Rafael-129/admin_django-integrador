@@ -17,10 +17,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from agricultura.views import CultivosViewSet
+from agricultura.views import (
+    CultivosViewSet, CosechaViewSet, UsuariosViewSet, PreguntaViewSet,
+    RegistroFertilizacionViewSet, SembrioViewSet, TipoSueloViewSet, UsuarioViewSet
+)
 
 router = routers.DefaultRouter()
 router.register(r'cultivos', CultivosViewSet)
+router.register(r'cosecha', CosechaViewSet)
+router.register(r'usuarios', UsuariosViewSet)
+router.register(r'pregunta', PreguntaViewSet)
+router.register(r'registro_fertilizacion', RegistroFertilizacionViewSet)
+router.register(r'sembrio', SembrioViewSet)
+router.register(r'tipo_suelo', TipoSueloViewSet)
+router.register(r'usuario', UsuarioViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

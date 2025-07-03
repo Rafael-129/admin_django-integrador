@@ -40,3 +40,169 @@
 .read-the-docs {
   color: #888;
 }
+
+.main-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-container {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  padding: 2.5rem 2rem 1.5rem 2rem;
+  max-width: 1100px;
+  width: 100%;
+  margin: 2rem;
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.3rem;
+  color: #2d3a4b;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  color: #5c6b7a;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+  background: #e3eafc;
+  border: none;
+  border-radius: 8px 8px 0 0;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  color: #2d3a4b;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  font-weight: 500;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.06);
+}
+
+.tab-btn.active, .tab-btn:hover {
+  background: #4f8cff;
+  color: #fff;
+}
+
+.tab-content {
+  min-height: 300px;
+  background: #f7faff;
+  border-radius: 0 0 12px 12px;
+  padding: 2rem 1rem;
+  box-shadow: 0 2px 12px rgba(44, 62, 80, 0.04);
+  animation: fadeIn 0.7s;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+}
+
+.styled-table th, .styled-table td {
+  padding: 0.7rem 1rem;
+  text-align: left;
+}
+
+.styled-table th {
+  background: #4f8cff;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.styled-table tr:nth-child(even) {
+  background: #f2f6fc;
+}
+
+.styled-table tr:hover {
+  background: #e3eafc;
+  transition: background 0.2s;
+}
+
+.empty-table {
+  color: #888;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.loader {
+  border: 6px solid #e3eafc;
+  border-top: 6px solid #4f8cff;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  margin: 2rem auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg);}
+}
+
+.error-msg {
+  color: #e74c3c;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 2rem 0;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 2rem;
+  color: #5c6b7a;
+  font-size: 1rem;
+}
+
+.heart {
+  color: #e74c3c;
+  font-size: 1.2em;
+}
+
+@media (max-width: 700px) {
+  .app-container {
+    padding: 1rem 0.3rem;
+  }
+  .tab-content {
+    padding: 1rem 0.2rem;
+  }
+  .styled-table th, .styled-table td {
+    padding: 0.4rem 0.3rem;
+    font-size: 0.95rem;
+  }
+  .header h1 {
+    font-size: 1.3rem;
+  }
+}
