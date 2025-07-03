@@ -9,10 +9,10 @@ const TABLES = [
     columns: ['id', 'nombre', 'departamento', 'distrito', 'fecha_siembra'],
   },
   {
-    key: 'usuarios',
-    title: 'Usuarios',
-    endpoint: 'usuarios',
-    columns: ['id', 'nombre', 'apellido', 'email', 'email_verificado', 'fecha_creacion'],
+    key: 'usuario',
+    title: 'Usuario',
+    endpoint: 'usuario',
+    columns: ['pk_usuario', 'nombre', 'apellido', 'email', 'contraseña', 'avatar', 'fk_pregunta'],
   },
   {
     key: 'cosecha',
