@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure--ur&^+#sl6%%vspf7tfx1b@5oot(7i^@ws#0i^tc)tbuh3sf37
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+ALLOWED_HOSTS = ['admin-django-integrador.onrender.com']
 
 
 # Application definition
