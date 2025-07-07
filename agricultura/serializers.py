@@ -1,19 +1,21 @@
 from rest_framework import serializers
 from .models import Usuarios, Cultivo, TiposTerreno, Recomendaciones
 
-class UsuariosSerializer(serializers.ModelSerializer):
+class TiposTerrenoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Usuarios
+        model = TiposTerreno
         fields = '__all__'
 
 class CultivoSerializer(serializers.ModelSerializer):
+    tipo_terreno = TiposTerrenoSerializer(read_only=True)
+
     class Meta:
         model = Cultivo
         fields = '__all__'
 
-class TiposTerrenoSerializer(serializers.ModelSerializer):
+class UsuariosSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TiposTerreno
+        model = Usuarios
         fields = '__all__'
 
 class RecomendacionesSerializer(serializers.ModelSerializer):

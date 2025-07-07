@@ -26,7 +26,6 @@ const TABLES = [
 			'estado',
 			'fecha_siembra',
 			'localidad',
-			'nombre_comun',
 			'tipo_terreno',
 			'usuario',
 		],
@@ -62,13 +61,15 @@ function Tabla({ columns, data }) {
 						<tr key={row.id || idx}>
 							{columns.map((col) => (
 								<td key={col}>
-									{typeof row[col] === 'boolean'
-										? row[col]
-											? 'Sí'
-											: 'No'
-										: row[col] !== null && row[col] !== undefined
-										? row[col].toString()
-										: ''}
+									{col === 'tipo_terreno' && row.tipo_terreno
+										? row.tipo_terreno.nombre
+										: typeof row[col] === 'boolean'
+											? row[col]
+												? 'Sí'
+												: 'No'
+											: row[col] !== null && row[col] !== undefined
+												? row[col].toString()
+												: ''}
 								</td>
 							))}
 						</tr>
