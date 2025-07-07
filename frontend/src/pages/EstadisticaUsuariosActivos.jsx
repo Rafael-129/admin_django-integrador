@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import DashboardChart from '../components/DashboardChart';
 import { useNavigate } from 'react-router-dom';
 
-export default function EstadisticaCultivos() {
+export default function EstadisticaUsuariosActivos() {
   const [labels, setLabels] = useState([]);
-  const [cultivosPorMes, setCultivosPorMes] = useState([]);
+  const [activosPorMes, setActivosPorMes] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -15,20 +15,20 @@ export default function EstadisticaCultivos() {
       window.location.href = '/admin-login';
       return;
     }
-    fetch('http://127.0.0.1:8000/api/cultivos/')
+    fetch('http://127.0.0.1:8000/api/usuarios/')
       .then(r => r.json())
-      .then(cultivos => {
-        // Procesar cultivos por mes (últimos 6 meses)
+      .then(usuarios => {
+        // Procesar usuarios activos por mes (últimos 6 meses)
         const meses = [];
-        const cultivosMes = [];
+        const activosMes = [];
         const date = new Date();
         for (let i = 5; i >= 0; i--) {
           const d = new Date(date.getFullYear(), date.getMonth() - i, 1);
           meses.push(d.toLocaleString('default', { month: 'short', year: '2-digit' }));
-          cultivosMes.push(cultivos.filter(c => c.fecha_siembra && new Date(c.fecha_siembra).getMonth() === d.getMonth() && new Date(c.fecha_siembra).getFullYear() === d.getFullYear()).length);
+          activosMes.push(usuarios.filter(u => u.ultimo_login && new Date(u.ultimo_login).getMonth() === d.getMonth() && new Date(u.ultimo_login).getFullYear() === d.getFullYear()).length);
         }
         setLabels(meses);
-        setCultivosPorMes(cultivosMes);
+        setActivosPorMes(activosMes);
         setLoading(false);
       });
   }, []);
@@ -36,7 +36,7 @@ export default function EstadisticaCultivos() {
   return (
     <div className="dashboard-bg">
       <div className="dashboard-container">
-        <h1 className="dashboard-title">Estadística de Cultivos</h1>
+        <h1 className="dashboard-title">Usuarios Activos</h1>
         <button
           onClick={() => navigate("/")}
           style={{
@@ -44,12 +44,12 @@ export default function EstadisticaCultivos() {
             padding: '10px 24px',
             borderRadius: 8,
             border: 'none',
-            background: 'linear-gradient(90deg, #22c55e 0%, #16a34a 100%)',
+            background: 'linear-gradient(90deg, #6366f1 0%, #3b82f6 100%)',
             color: '#fff',
             fontWeight: 700,
             fontSize: 16,
             cursor: 'pointer',
-            boxShadow: '0 2px 8px #22c55e44',
+            boxShadow: '0 2px 8px #6366f144',
             transition: 'background 0.2s, transform 0.1s',
           }}
         >
@@ -58,7 +58,7 @@ export default function EstadisticaCultivos() {
         {loading ? (
           <div>Cargando...</div>
         ) : (
-          <DashboardChart labels={labels} dataSet={cultivosPorMes} color="#22c55e" title="Cultivos registrados por mes" label="Cultivos" />
+          <DashboardChart labels={labels} dataSet={activosPorMes} color="#6366f1" title="Usuarios activos por mes" label="Activos" />
         )}
       </div>
     </div>

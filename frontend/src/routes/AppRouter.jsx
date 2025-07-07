@@ -5,6 +5,7 @@ import AdminLogin from '../pages/AdminLogin';
 import AdminProfile from '../pages/AdminProfile';
 import AdminRegister from '../pages/AdminRegister';
 import EstadisticaUsuarios from '../pages/EstadisticaUsuarios';
+import EstadisticaUsuariosActivos from '../pages/EstadisticaUsuariosActivos';
 import EstadisticaCultivos from '../pages/EstadisticaCultivos';
 import EstadisticaRecomendaciones from '../pages/EstadisticaRecomendaciones';
 
@@ -23,7 +24,8 @@ export default function AppRouter() {
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/admin-profile" element={<AdminProfile />} />
         <Route path="/admin-register" element={<AdminRegister />} />
-        <Route path="/estadisticas/usuarios" element={<EstadisticaUsuarios />} />
+        <Route path="/estadisticas/usuarios-registrados" element={<EstadisticaUsuarios />} />
+        <Route path="/estadisticas/usuarios-activos" element={<EstadisticaUsuariosActivos />} />
         <Route path="/estadisticas/cultivos" element={<EstadisticaCultivos />} />
         <Route path="/estadisticas/recomendaciones" element={<EstadisticaRecomendaciones />} />
       </Routes>

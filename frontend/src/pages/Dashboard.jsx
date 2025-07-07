@@ -75,8 +75,8 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="dashboard-cards">
-          <Card title="Usuarios registrados" value={loading ? '...' : stats.usuarios} icon="👤" color="#4f8cff" onClick={() => navigate('/estadisticas/usuarios')} />
-          <Card title="Usuarios activos (7 días)" value={loading ? '...' : stats.usuariosActivos} icon="✅" color="#2ecc71" onClick={() => navigate('/estadisticas/usuarios')} />
+          <Card title="Usuarios registrados" value={loading ? '...' : stats.usuarios} icon="👤" color="#4f8cff" onClick={() => navigate('/estadisticas/usuarios-registrados')} />
+          <Card title="Usuarios activos (7 días)" value={loading ? '...' : stats.usuariosActivos} icon="✅" color="#6366f1" onClick={() => navigate('/estadisticas/usuarios-activos')} />
           <Card title="Cultivos registrados" value={loading ? '...' : stats.cultivos} icon="🌱" color="#f39c12" onClick={() => navigate('/estadisticas/cultivos')} />
           <Card title="Recomendaciones" value={loading ? '...' : stats.recomendaciones} icon="💬" color="#e67e22" onClick={() => navigate('/estadisticas/recomendaciones')} />
         </div>

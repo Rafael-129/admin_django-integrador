@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import DashboardChart from '../components/DashboardChart';
+import { useNavigate } from 'react-router-dom';
 
 export default function EstadisticaRecomendaciones() {
   const [labels, setLabels] = useState([]);
   const [recomendacionesPorMes, setRecomendacionesPorMes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Protección de ruta
@@ -35,6 +37,24 @@ export default function EstadisticaRecomendaciones() {
     <div className="dashboard-bg">
       <div className="dashboard-container">
         <h1 className="dashboard-title">Estadística de Recomendaciones</h1>
+        <button
+          onClick={() => navigate("/")}
+          style={{
+            marginBottom: 24,
+            padding: '10px 24px',
+            borderRadius: 8,
+            border: 'none',
+            background: 'linear-gradient(90deg, #e67e22 0%, #f59e42 100%)',
+            color: '#fff',
+            fontWeight: 700,
+            fontSize: 16,
+            cursor: 'pointer',
+            boxShadow: '0 2px 8px #e67e2244',
+            transition: 'background 0.2s, transform 0.1s',
+          }}
+        >
+          ← Volver al Dashboard
+        </button>
         {loading ? (
           <div>Cargando...</div>
         ) : (
