@@ -150,6 +150,7 @@ class Pregunta(models.Model):
     pk_pregunta = models.AutoField(primary_key=True)
     pregunta = models.TextField(blank=True, null=True)
     respuesta = models.TextField(blank=True, null=True)
+    fk_usuario = models.ForeignKey('usuario', models.DO_NOTHING, db_column='fk_usuario', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -199,6 +200,9 @@ class Usuario(models.Model):
     class Meta:
         managed = False
         db_table = 'usuario'
+
+    def __str__(self):
+        return f"{self.nombre} {self.apellido} ({self.email})"
 
 
 class Usuarios(models.Model):

@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 const TABLES = [
+    {
+    key: 'usuario',
+    title: 'Usuario',
+    endpoint: 'usuario',
+    columns: ['pk_usuario', 'nombre', 'apellido', 'email', 'contraseña', 'avatar'],
+  },
   {
     key: 'cultivos',
     title: 'Cultivos',
     endpoint: 'cultivos',
     columns: ['id', 'nombre', 'departamento', 'distrito', 'fecha_siembra'],
-  },
-  {
-    key: 'usuario',
-    title: 'Usuario',
-    endpoint: 'usuario',
-    columns: ['pk_usuario', 'nombre', 'apellido', 'email', 'contraseña', 'avatar', 'fk_pregunta'],
   },
   {
     key: 'cosecha',
@@ -24,7 +24,7 @@ const TABLES = [
     key: 'pregunta',
     title: 'Preguntas',
     endpoint: 'pregunta',
-    columns: ['pk_pregunta', 'pregunta', 'respuesta'],
+    columns: ['usuario', 'pk_pregunta', 'pregunta', 'respuesta'],
   },
   {
     key: 'registro_fertilizacion',
@@ -61,11 +61,13 @@ function Tabla({ columns, data }) {
             <tr key={row.id || row.pk_usuario || row.pk_cosecha || row.pk_pregunta || row.pk_fertilizacion || row.pk_sembrio || row.pk_tipo_suelo || idx}>
               {columns.map(col => (
                 <td key={col}>
-                  {typeof row[col] === 'boolean'
-                    ? row[col] ? 'Sí' : 'No'
-                    : row[col] !== null && row[col] !== undefined
-                      ? row[col].toString()
-                      : ''}
+                  {col === 'usuario' && row.fk_usuario
+                    ? `${row.fk_usuario.nombre || ''} (${row.fk_usuario.email || ''})`
+                    : typeof row[col] === 'boolean'
+                      ? row[col] ? 'Sí' : 'No'
+                      : row[col] !== null && row[col] !== undefined
+                        ? row[col].toString()
+                        : ''}
                 </td>
               ))}
             </tr>
