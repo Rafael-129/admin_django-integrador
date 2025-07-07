@@ -1,10 +1,3 @@
-# This is an auto-generated Django model module.
-# You'll have to do the following manually to clean this up:
-#   * Rearrange models' order
-#   * Make sure each model has one field with primary_key=True
-#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
-# Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
 
@@ -77,28 +70,19 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
-class Cosecha(models.Model):
-    pk_cosecha = models.AutoField(primary_key=True)
-    fk_sembrio = models.ForeignKey('Sembrio', models.DO_NOTHING, db_column='fk_sembrio', blank=True, null=True)
-    cantidad_valor = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
-    fecha_cosecha = models.DateField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'cosecha'
-
-
-class Cultivos(models.Model):
+class Cultivo(models.Model):
     id = models.BigAutoField(primary_key=True)
-    departamento = models.CharField(max_length=255, blank=True, null=True)
-    distrito = models.CharField(max_length=255, blank=True, null=True)
+    cultivo = models.CharField(max_length=255, blank=True, null=True)
+    descripcion = models.CharField(max_length=255, blank=True, null=True)
+    estado = models.CharField(max_length=20)
     fecha_siembra = models.DateField(blank=True, null=True)
-    nombre = models.CharField(max_length=255, blank=True, null=True)
+    localidad = models.CharField(max_length=255, blank=True, null=True)
+    tipo_terreno = models.ForeignKey('TiposTerreno', models.DO_NOTHING, blank=True, null=True)
     usuario = models.ForeignKey('Usuarios', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'cultivos'
+        db_table = 'cultivo'
 
 
 class DjangoAdminLog(models.Model):
@@ -136,73 +120,36 @@ class DjangoMigrations(models.Model):
         db_table = 'django_migrations'
 
 
-class DjangoSession(models.Model):
+class DjangoSessions(models.Model):
     session_key = models.CharField(primary_key=True, max_length=40)
     session_data = models.TextField()
     expire_date = models.DateTimeField()
 
     class Meta:
         managed = False
-        db_table = 'django_session'
+        db_table = 'django_sessions'
 
 
-class Pregunta(models.Model):
-    pk_pregunta = models.AutoField(primary_key=True)
-    pregunta = models.TextField(blank=True, null=True)
-    respuesta = models.TextField(blank=True, null=True)
-    fk_usuario = models.ForeignKey('usuario', models.DO_NOTHING, db_column='fk_usuario', blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'pregunta'
-
-
-class RegistroFertilizacion(models.Model):
-    pk_fertilizacion = models.AutoField(primary_key=True)
-    fk_sembrio = models.ForeignKey('Sembrio', models.DO_NOTHING, db_column='fk_sembrio', blank=True, null=True)
-    fecha_fertilizacion = models.DateField(blank=True, null=True)
-    tipo_fertilizante = models.CharField(max_length=100, blank=True, null=True)
+class Recomendaciones(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    fecha = models.DateTimeField(blank=True, null=True)
+    cultivo_id = models.BigIntegerField(blank=True, null=True)
+    estado = models.CharField(max_length=20)
+    pregunta = models.CharField(max_length=255, blank=True, null=True)
+    respuesta = models.CharField(max_length=600, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'registro_fertilizacion'
+        db_table = 'recomendaciones'
 
 
-class Sembrio(models.Model):
-    pk_sembrio = models.AutoField(primary_key=True)
-    semilla = models.CharField(max_length=100, blank=True, null=True)
-    descripcion = models.TextField(blank=True, null=True)
-    fk_usuario = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='fk_usuario', blank=True, null=True)
-    fk_tipo_suelo = models.ForeignKey('TipoSuelo', models.DO_NOTHING, db_column='fk_tipo_suelo', blank=True, null=True)
+class TiposTerreno(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    nombre = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'sembrio'
-
-
-class TipoSuelo(models.Model):
-    pk_tipo_suelo = models.AutoField(primary_key=True)
-
-    class Meta:
-        managed = False
-        db_table = 'tipo_suelo'
-
-
-class Usuario(models.Model):
-    pk_usuario = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=50, blank=True, null=True)
-    apellido = models.CharField(max_length=50, blank=True, null=True)
-    email = models.CharField(max_length=100, blank=True, null=True)
-    contraseña = models.CharField(max_length=100, blank=True, null=True)
-    avatar = models.CharField(max_length=255, blank=True, null=True)
-    fk_pregunta = models.ForeignKey(Pregunta, models.DO_NOTHING, db_column='fk_pregunta', blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'usuario'
-
-    def __str__(self):
-        return f"{self.nombre} {self.apellido} ({self.email})"
+        db_table = 'tipos_terreno'
 
 
 class Usuarios(models.Model):
@@ -215,7 +162,7 @@ class Usuarios(models.Model):
     foto_perfil_url = models.CharField(max_length=500, blank=True, null=True)
     google_id = models.CharField(unique=True, max_length=255, blank=True, null=True)
     nombre = models.CharField(max_length=255, blank=True, null=True)
-    nombre_pila = models.CharField(max_length=255, blank=True, null=True)
+    nombre_pila = models.CharField(unique=True, max_length=255, blank=True, null=True)
     ultimo_login = models.DateTimeField(blank=True, null=True)
 
     class Meta:
