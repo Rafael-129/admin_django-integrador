@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react';
 import '../style/Dashboard.css';
+import { useNavigate } from 'react-router-dom';
 
-function Card({ title, value, icon, color }) {
+function Card({ title, value, icon, color, onClick }) {
   return (
-    <div className="dashboard-card" style={{ borderColor: color }}>
+    <button
+      className="dashboard-card clickable"
+      style={{ borderColor: color, cursor: 'pointer' }}
+      onClick={onClick}
+    >
       <div className="dashboard-card-icon" style={{ color }}>{icon}</div>
       <div className="dashboard-card-value">{value}</div>
       <div className="dashboard-card-title">{title}</div>
-    </div>
+    </button>
   );
 }
 
@@ -16,7 +21,6 @@ function getAdminUsername() {
     const token = localStorage.getItem('adminToken');
     if (!token) return null;
     const payload = JSON.parse(atob(token.split('.')[1]));
-    // username is not in default JWT, so just show 'Admin' or user id
     return payload.username || `ID: ${payload.user_id}` || 'Admin';
   } catch {
     return 'Admin';
@@ -32,6 +36,7 @@ export default function Dashboard() {
   });
   const [loading, setLoading] = useState(true);
   const [admin, setAdmin] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Route protection
@@ -70,10 +75,10 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="dashboard-cards">
-          <Card title="Usuarios registrados" value={loading ? '...' : stats.usuarios} icon="👤" color="#4f8cff" />
-          <Card title="Usuarios activos (7 días)" value={loading ? '...' : stats.usuariosActivos} icon="✅" color="#2ecc71" />
-          <Card title="Cultivos registrados" value={loading ? '...' : stats.cultivos} icon="🌱" color="#f39c12" />
-          <Card title="Recomendaciones" value={loading ? '...' : stats.recomendaciones} icon="💬" color="#e67e22" />
+          <Card title="Usuarios registrados" value={loading ? '...' : stats.usuarios} icon="👤" color="#4f8cff" onClick={() => navigate('/estadisticas/usuarios')} />
+          <Card title="Usuarios activos (7 días)" value={loading ? '...' : stats.usuariosActivos} icon="✅" color="#2ecc71" onClick={() => navigate('/estadisticas/usuarios')} />
+          <Card title="Cultivos registrados" value={loading ? '...' : stats.cultivos} icon="🌱" color="#f39c12" onClick={() => navigate('/estadisticas/cultivos')} />
+          <Card title="Recomendaciones" value={loading ? '...' : stats.recomendaciones} icon="💬" color="#e67e22" onClick={() => navigate('/estadisticas/recomendaciones')} />
         </div>
         <div className="dashboard-footer">
           <b>Panel de métricas para administradores</b>

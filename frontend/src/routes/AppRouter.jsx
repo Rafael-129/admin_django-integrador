@@ -4,6 +4,9 @@ import Tables from '../pages/Tables';
 import AdminLogin from '../pages/AdminLogin';
 import AdminProfile from '../pages/AdminProfile';
 import AdminRegister from '../pages/AdminRegister';
+import EstadisticaUsuarios from '../pages/EstadisticaUsuarios';
+import EstadisticaCultivos from '../pages/EstadisticaCultivos';
+import EstadisticaRecomendaciones from '../pages/EstadisticaRecomendaciones';
 
 export default function AppRouter() {
   return (
@@ -20,6 +23,9 @@ export default function AppRouter() {
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/admin-profile" element={<AdminProfile />} />
         <Route path="/admin-register" element={<AdminRegister />} />
+        <Route path="/estadisticas/usuarios" element={<EstadisticaUsuarios />} />
+        <Route path="/estadisticas/cultivos" element={<EstadisticaCultivos />} />
+        <Route path="/estadisticas/recomendaciones" element={<EstadisticaRecomendaciones />} />
       </Routes>
     </BrowserRouter>
   );
