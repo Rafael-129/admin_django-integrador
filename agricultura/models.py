@@ -147,6 +147,9 @@ class TiposTerreno(models.Model):
     id = models.BigAutoField(primary_key=True)
     nombre = models.CharField(max_length=255, blank=True, null=True)
 
+    def __str__(self):
+        return self.nombre or f"TipoTerreno {self.id}"
+
     class Meta:
         managed = False
         db_table = 'tipos_terreno'
@@ -161,7 +164,9 @@ class Usuarios(models.Model):
     fecha_creacion = models.DateTimeField(blank=True, null=True)
     foto_perfil_url = models.CharField(max_length=500, blank=True, null=True)
     google_id = models.CharField(unique=True, max_length=255, blank=True, null=True)
-    nombre = models.CharField(max_length=255, blank=True, null=True)
+    nombre = models.CharField(max_length=100)  # ejemplo, ajusta según tu modelo
+    def __str__(self):
+        return self.nombre
     nombre_pila = models.CharField(unique=True, max_length=255, blank=True, null=True)
     ultimo_login = models.DateTimeField(blank=True, null=True)
 
