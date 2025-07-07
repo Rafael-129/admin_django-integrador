@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from agricultura.views import api_root, AdminUserCreateView, MyTokenObtainPairView
 from rest_framework import routers
+from django.http import HttpResponse
 from agricultura.views import (
     UsuariosViewSet,
     CultivoViewSet,
@@ -21,4 +22,5 @@ urlpatterns = [
     path('api/create-admin/', AdminUserCreateView.as_view(), name='create_admin'),
     path('api/', include(router.urls)),  # Esto debe ir antes que api_root
     path('api/', api_root, name='api-root'),  # Esto SOLO debe ser para /api/
+    path('', lambda request: HttpResponse("¡Backend Django funcionando!".encode("utf-8")), name='home'),
 ]
