@@ -21,7 +21,7 @@ function AdminLogin() {
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem("adminToken", data.access);
-        window.location.href = "/admin-dashboard";
+        window.location.href = "/";
       } else {
         setError("Usuario o contraseña incorrectos, o no es administrador.");
       }

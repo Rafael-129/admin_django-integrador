@@ -11,6 +11,18 @@ function Card({ title, value, icon, color }) {
   );
 }
 
+function getAdminUsername() {
+  try {
+    const token = localStorage.getItem('adminToken');
+    if (!token) return null;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    // username is not in default JWT, so just show 'Admin' or user id
+    return payload.username || `ID: ${payload.user_id}` || 'Admin';
+  } catch {
+    return 'Admin';
+  }
+}
+
 export default function Dashboard() {
   const [stats, setStats] = useState({
     usuarios: 0,
@@ -19,8 +31,16 @@ export default function Dashboard() {
     recomendaciones: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [admin, setAdmin] = useState('');
 
   useEffect(() => {
+    // Route protection
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      window.location.href = '/admin-login';
+      return;
+    }
+    setAdmin(getAdminUsername());
     Promise.all([
       fetch('http://127.0.0.1:8000/api/usuarios/').then(r => r.json()),
       fetch('http://127.0.0.1:8000/api/cultivos/').then(r => r.json()),
@@ -43,7 +63,12 @@ export default function Dashboard() {
   return (
     <div className="dashboard-bg">
       <div className="dashboard-container">
-        <h1 className="dashboard-title">Panel de Administración</h1>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h1 className="dashboard-title">Panel de Administración</h1>
+          <div style={{ fontWeight: 500, color: '#6366f1', fontSize: 16 }}>
+            <span role="img" aria-label="admin">👤</span> {admin}
+          </div>
+        </div>
         <div className="dashboard-cards">
           <Card title="Usuarios registrados" value={loading ? '...' : stats.usuarios} icon="👤" color="#4f8cff" />
           <Card title="Usuarios activos (7 días)" value={loading ? '...' : stats.usuariosActivos} icon="✅" color="#2ecc71" />

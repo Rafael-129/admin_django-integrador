@@ -44,13 +44,32 @@ const TABLES = [
   },
 ];
 
+function getAdminUsername() {
+  try {
+    const token = localStorage.getItem('adminToken');
+    if (!token) return null;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.username || `ID: ${payload.user_id}` || 'Admin';
+  } catch {
+    return 'Admin';
+  }
+}
+
 export default function Tables() {
   const [activeTab, setActiveTab] = useState(TABLES[0].key);
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [admin, setAdmin] = useState('');
 
   useEffect(() => {
+    // Route protection
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      window.location.href = '/admin-login';
+      return;
+    }
+    setAdmin(getAdminUsername());
     setLoading(true);
     setError(null);
     Promise.all(
@@ -77,13 +96,16 @@ export default function Tables() {
   return (
     <div className="main-bg">
       <div className="app-container">
-        <header className="header">
+        <header className="header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <h1>
             <span role="img" aria-label="database">
               🌾
             </span>{' '}
             Tablas de Agricultura
           </h1>
+          <div style={{ fontWeight: 500, color: '#6366f1', fontSize: 16 }}>
+            <span role="img" aria-label="admin">👤</span> {admin}
+          </div>
         </header>
         <nav className="tabs">
           {TABLES.map((tab) => (
