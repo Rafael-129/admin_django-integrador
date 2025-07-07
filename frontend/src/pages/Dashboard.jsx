@@ -47,9 +47,9 @@ export default function Dashboard() {
     }
     setAdmin(getAdminUsername());
     Promise.all([
-      fetch('http://127.0.0.1:8000/api/usuarios/').then(r => r.json()),
-      fetch('http://127.0.0.1:8000/api/cultivos/').then(r => r.json()),
-      fetch('http://127.0.0.1:8000/api/recomendaciones/').then(r => r.json()),
+      fetch('https://administrador-agrotech-bakcend.onrender.com/api/usuarios/').then(r => r.json()),
+      fetch('https://administrador-agrotech-bakcend.onrender.com/api/cultivos/').then(r => r.json()),
+      fetch('https://administrador-agrotech-bakcend.onrender.com/api/recomendaciones/').then(r => r.json()),
     ]).then(([usuarios, cultivos, recomendaciones]) => {
       const now = new Date();
       const activos = usuarios.filter(u => u.ultimo_login && (

@@ -15,7 +15,7 @@ export default function EstadisticaUsuariosActivos() {
       window.location.href = '/admin-login';
       return;
     }
-    fetch('http://127.0.0.1:8000/api/usuarios/')
+    fetch('https://administrador-agrotech-bakcend.onrender.com/api/usuarios/')
       .then(r => r.json())
       .then(usuarios => {
         // Procesar usuarios activos por mes (últimos 6 meses)

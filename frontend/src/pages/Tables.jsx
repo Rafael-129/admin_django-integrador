@@ -74,7 +74,7 @@ export default function Tables() {
     setError(null);
     Promise.all(
       TABLES.map((table) =>
-        fetch(`http://127.0.0.1:8000/api/${table.endpoint}/`)
+        fetch(`https://administrador-agrotech-bakcend.onrender.com/api/${table.endpoint}/`)
           .then((r) => r.json())
           .catch(() => [])
       )

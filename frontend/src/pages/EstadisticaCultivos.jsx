@@ -15,7 +15,7 @@ export default function EstadisticaCultivos() {
       window.location.href = '/admin-login';
       return;
     }
-    fetch('http://127.0.0.1:8000/api/cultivos/')
+    fetch('https://administrador-agrotech-bakcend.onrender.com/api/cultivos/')
       .then(r => r.json())
       .then(cultivos => {
         // Procesar cultivos por mes (últimos 6 meses)

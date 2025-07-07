@@ -23,7 +23,7 @@ export default function AdminRegister() {
     setSuccess("");
     setLoading(true);
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/create-admin/", {
+      const res = await fetch("https://administrador-agrotech-bakcend.onrender.com/api/create-admin/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
