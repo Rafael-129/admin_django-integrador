@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import AppRouter from './routes/AppRouter';
 
 const TABLES = [
 	{
@@ -81,75 +82,8 @@ function Tabla({ columns, data }) {
 }
 
 function App() {
-	const [activeTab, setActiveTab] = useState(TABLES[0].key);
-	const [data, setData] = useState({});
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
-
-	useEffect(() => {
-		setLoading(true);
-		setError(null);
-		Promise.all(
-			TABLES.map((table) =>
-				fetch(`http://127.0.0.1:8000/api/${table.endpoint}/`)
-					.then((r) => r.json())
-					.catch(() => [])
-			)
-		)
-			.then((results) => {
-				const newData = {};
-				TABLES.forEach((table, idx) => {
-					newData[table.key] = results[idx];
-				});
-				setData(newData);
-				setLoading(false);
-			})
-			.catch(() => {
-				setError('Error al obtener los datos');
-				setLoading(false);
-			});
-	}, []);
-
-	return (
-		<div className="main-bg">
-			<div className="app-container">
-				<header className="header">
-					<h1>
-						<span role="img" aria-label="database">
-							🌾
-						</span>{' '}
-						Panel de Tablas de Agricultura
-					</h1>
-				</header>
-				<nav className="tabs">
-					{TABLES.map((tab) => (
-						<button
-							key={tab.key}
-							className={`tab-btn${
-								activeTab === tab.key ? ' active' : ''
-							}`}
-							onClick={() => setActiveTab(tab.key)}
-						>
-							{tab.title}
-						</button>
-					))}
-				</nav>
-				<section className="tab-content">
-					{loading ? (
-						<div className="loader"></div>
-					) : error ? (
-						<div className="error-msg">{error}</div>
-					) : (
-						<Tabla
-							columns={TABLES.find((t) => t.key === activeTab).columns}
-							data={data[activeTab] || []}
-						/>
-					)}
-				</section>
-			</div>
-		</div>
-	);
+	return <AppRouter />;
 }
 
-export default App;
 
+export default App;
