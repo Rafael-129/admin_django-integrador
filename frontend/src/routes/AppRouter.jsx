@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Dashboard from '../pages/Dashboard';
 import Tables from '../pages/Tables';
+import AdminLogin from '../pages/AdminLogin';
 
 export default function AppRouter() {
   return (
@@ -12,6 +13,7 @@ export default function AppRouter() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/tablas" element={<Tables />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
       </Routes>
     </BrowserRouter>
   );
