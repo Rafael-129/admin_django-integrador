@@ -13,6 +13,9 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Copia el resto del código
 COPY . .
 
+# Ejecuta collectstatic (¡esto es lo importante!)
+RUN python manage.py collectstatic --noinput
+
 # Expone el puerto (Render usará el 10000 por defecto, pero Gunicorn escucha en 8000)
 EXPOSE 8000
 
